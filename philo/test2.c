@@ -11,6 +11,7 @@ long long sum = 0;
 typedef struct thread_data
 {
 	int addNum;
+	int p;
 } THREAD_DATA;
 
 void	*add(void *arg){
@@ -18,6 +19,7 @@ void	*add(void *arg){
 	THREAD_DATA *data = (THREAD_DATA*)arg;;
 
 	printf("data->addNum :  %d\n", data->addNum);
+	printf ("        p = %d\n", data->p);
 	/* addNum回 sum = sum + 1 を実行 */
 	for (i = 0; i < data->addNum; i++)
 	{
@@ -41,6 +43,8 @@ int	main(void)
 	/* スレッドの開始 */
 	for (i = 0; i < NUM_THREAD; i++)
 	{
+		printf("    i = %d\n", i);
+		data[i].p = i + 1;
 		pthread_create(&thread[i], NULL, add, &data[i]);
 	}
 	/* スレッドの終了待ち */

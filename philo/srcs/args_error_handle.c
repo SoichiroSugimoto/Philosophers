@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handle.c                                     :+:      :+:    :+:   */
+/*   args_error_handle.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:11:47 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/11 19:39:55 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/13 19:52:54 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-int	argc_error(int argc)
-{
-	if (argc < 4)
-	{
-		printf("Errror : The number of arguments is too small.")
-		return (ERROR);
-	}
-	if (argc > 5)
-	{
-		printf("Errror : The number of arguments is too many.")
-		return (ERROR);
-	}
-	return (1);
-}
 
 int	numrange_error(char *num)
 {
@@ -42,4 +27,29 @@ int	numrange_error(char *num)
 		i++;
 	}
 	return (1);
+}
+
+int	args_error(int argc, char **argv)
+{
+	int	i;
+	int	res;
+
+	i = 1;
+	res = 1;
+	if (argc < 4)
+	{
+		printf("Errror : The number of arguments is too small.")
+		return (ERROR);
+	}
+	if (argc > 5)
+	{
+		printf("Errror : The number of arguments is too many.")
+		return (ERROR);
+	}
+	while (i < argc)
+	{
+		res = numrange_error(argv[i]);
+		i++;
+	}
+	return (res);
 }

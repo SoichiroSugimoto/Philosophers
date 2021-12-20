@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <stdlib.h>
 
 int	global_val = 0;
 int judge = 0;
@@ -13,6 +14,8 @@ void	*thread_start_routine(void *data)
 
 	val = (int)data;
 	printf("● ● ● ● ● ● ● ● ● ● thread_start_routine : val=%d\n", val);
+	char *test;
+	test = (char *)malloc(sizeof(char) * 100);
 	i = 0;
 	while (i < 10)
 	{
@@ -55,6 +58,7 @@ int	main(void)
 	void		*th_ret;
 
 	i = 0;
+	char *test;
 	if (pthread_create(&th, NULL, thread_start_routine, (void *)100) != 0)
 	{
 		perror("pthread_create");

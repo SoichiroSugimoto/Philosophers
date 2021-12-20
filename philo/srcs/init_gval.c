@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_struct.c                                       :+:      :+:    :+:   */
+/*   init_gval.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 12:24:23 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/12 12:24:49 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/20 18:56:06 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,39 @@ long long	my_atoi(const char *str)
 	return (res * sign);
 }
 
-int	get_struct(int argc, char **args, t_philo	*data)
+void	set_mutex(t_philo *data)
 {
-	data->num_of_philos = (int)my_atoi(args[1]);
-	data->time_to_die = (int)my_atoi(args[2]);
-	data->time_to_eat = (int)my_atoi(args[3]);
-	data->time_to_sleep = (int)my_atoi(args[4]);
+	int	i;
+
+	i = 0;
+	g_fork_mutex = (pthread_mutex_t *)
+		malloc(sizeof(pthread_mutex_t) * g_num_of_philos);
+	while (i < g_num_of_philos)
+	{
+		pthread_mutex_init(&((g_fork_mutex)[i]), NULL);
+		i++;
+	}
+	pthread_mutex_init(&(g_output_mutex), NULL);
+}
+
+int	init_gval(int argc, char **args)
+{
+	g_starvation_flag = LIFE;
+	g_num_of_philos = (int)my_atoi(args[1]);
+	g_time_to_die = (int)my_atoi(args[2]);
+	g_time_to_eat = (int)my_atoi(args[3]);
+	g_time_to_sleep = (int)my_atoi(args[4]);
 	if (argc == 6)
-		data->num_of_must_eat = (int)my_atoi(args[5]);
+		g_num_of_must_eat = (int)my_atoi(args[5]);
 	else
-		data->num_of_must_eat = -1;
-	data->philo_descriptor = 0;
-	data->philo_thread
-		= (pthread_t *)malloc(sizeof(pthread_t) * data->num_of_philos);
-	data->fork_mutex
-		= (pthread_mutex_t *)malloc
-		(sizeof(pthread_mutex_t) * data->num_of_philos);
+		g_num_of_must_eat = -1;
+	g_eat_counter = 0;
+	g_end_of_eating
+		= (long long *)malloc(sizeof(long long) * g_num_of_philos);
+	g_philo_thread
+		= (pthread_t *)malloc(sizeof(pthread_t) * g_num_of_philos);
+	g_monitor_thread
+		= (pthread_t *)malloc(sizeof(pthread_t) * g_num_of_philos);
+	set_mutex(data);
 	return (1);
 }
