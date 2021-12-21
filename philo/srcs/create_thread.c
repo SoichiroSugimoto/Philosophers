@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:58:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/20 19:37:37 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/21 10:10:25 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,28 @@
 
 void	*moni_thread_routine(void *arg)
 {
+	struct timeval	now;
+	long long		now_ms;
+
+	while (1)
+	{
+		gettimeofday(&now, NULL);
+		now_ms = get_timesec(now);
+		if (g_end_of_eating[(int)arg] - now >= g_time_to_die)
+			g_starvation_flag = DEATH;
+		usleep(200);
+	}
 }
 
 void	*philo_thread_routine(void *arg)
 {
-	int	pd;
+	int			pd;
+	t_action	*data;
 
 	pd = (int)arg + 1;
+	data = (t_action *)malloc(sizeof(t_action));
+	data->philo_descriptor = pd;
+	data->num_of_forks = 0;
 	if (pthread_create(&(g_monitor_thread[(int)arg]), NULL,
 			moni_thread_routine, (void *)data) != 0)
 	{
@@ -29,9 +44,9 @@ void	*philo_thread_routine(void *arg)
 	}
 	while (1)
 	{
-		iseating();
-		issleeping();
-		isthinking();
+		iseating(data);
+		issleeping(data);
+		isthinking(data);
 	}
 	return (NULL);
 }

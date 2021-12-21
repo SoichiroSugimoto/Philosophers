@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 19:52:28 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/20 20:02:03 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/21 10:11:33 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_usleep(struct timeval	start, long long	sleep_ms)
 	start = (long long)start.tv_sec * 1000 + (long long)start.tv_usec / 1000;
 	while (1)
 	{
-		gettimeofday(now, NULL);
+		gettimeofday(&now, NULL);
 		now = (long long)now.tv_sec * 1000 + (long long)now.tv_usec / 1000;
 		if (now - start >= sleep_ms)
 			break ;
@@ -27,7 +27,7 @@ void	ft_usleep(struct timeval	start, long long	sleep_ms)
 	}
 }
 
-long long	get_timesec(struct timeval	time)
+long long	get_timemsec(struct timeval	time)
 {
 	long long	ms;
 

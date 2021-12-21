@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:56:35 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/20 19:05:42 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/21 09:45:01 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	terminate_all(void)
 	while (i < g_num_of_philos)
 	{
 		pthread_detach(&(g_philo_thread[i]));
+		pthread_detach(&(g_monitor_thread[i]));
 		i++;
 	}
 }
