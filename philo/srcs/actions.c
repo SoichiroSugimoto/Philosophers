@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:59:10 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/24 13:38:56 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/24 15:45:10 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	output_with_mutex(int x, struct timeval	time, char *message)
 	pthread_mutex_lock(&g_output_mutex);
 	// if (x == 1)
 	// 	printf("   ----------   :  ");
-	printf("%lld %d %s", get_timemsec(time), x, message);
+	if (g_starvation_flag == LIFE)
+		printf("%lld %d %s", get_timemsec(time), x, message);
 	pthread_mutex_unlock(&g_output_mutex);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:58:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/24 15:03:14 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/24 15:46:05 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ void	*moni_thread_routine(void *arg)
 		&& g_end_of_eating[data->philo_descriptor - 1] != -1)
 		{
 			// printf("                   [moni_thread_routine] Recognize death of a philosopher.\n");
+			pthread_mutex_lock(&g_output_mutex);
 			g_starvation_flag = data->philo_descriptor;
 			g_death_time = now_ms;
+			pthread_mutex_unlock(&g_output_mutex);
 		}
 		usleep(200);
 	}
