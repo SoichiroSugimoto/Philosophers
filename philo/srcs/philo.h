@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:49:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/21 10:29:33 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/22 11:52:17 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define ERROR -1;
+# define ERROR -1
 
 # define LIFE 1
 # define DEATH 0
@@ -38,6 +38,7 @@ int				g_time_to_die;
 int				g_time_to_eat;
 int				g_time_to_sleep;
 int				g_num_of_must_eat;
+int				g_philo_descriptor;
 int				g_eat_counter;
 long long		*g_end_of_eating;
 pthread_t		*g_philo_thread;
@@ -55,28 +56,35 @@ typedef struct s_action
 // ---------------------------  philo.c
 
 // ---------------------------  args_error_handle.c
-int					numrange_error(char *num);
-int					args_error(int argc, char **argv);
+int				numrange_error(char *num);
+int				args_error(int argc, char **argv);
 
 // ---------------------------  init_gval.c
-long long			my_atoi(const char *str);
-void				set_mutex(t_philo *data);
-int					get_struct(int argc, char **args, t_philo	*data);
+long long		my_atoi(const char *str);
+void			set_mutex(void);
+int				init_gval(int argc, char **args);
 
 // ---------------------------  create_thread.c
-void				*moni_thread_routine(void *arg);
-void				*philo_thread_routine(void *arg);
-int					create_thread(void);
+void			*moni_thread_routine(void *arg);
+void			*philo_thread_routine(void *arg);
+void			create_thread(void);
 
 // ---------------------------  actions.c
+void			output_with_mutex(int x, struct timeval	time, char *message);
+void			xiseating(t_action *data);
+void			xissleeping(t_action *data);
+void			xisthinking(t_action *data);
 
 // ---------------------------  terminator.c
-int					terminate_all(void);
-void				*terminator_thread(void *arg);
-int					create_terminator(void);
+void			terminate_all(void);
+void			*terminator_thread(void *arg);
+void			create_terminator(void);
 
 // ---------------------------  utils.c
-void				ft_usleep(struct timeval	start, long long	sleep_ms);
-long long			get_timemsec(struct timeval	time);
+void			ft_usleep(struct timeval	start, long long	sleep_ms);
+long long		get_timemsec(struct timeval	time);
+
+// -----------------------------------------------------------------------  AAAAA.c
+void			print_gval(void);
 
 #endif

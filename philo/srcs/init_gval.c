@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 12:24:23 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/20 18:56:06 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/22 11:53:02 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ long long	my_atoi(const char *str)
 	return (res * sign);
 }
 
-void	set_mutex(t_philo *data)
+void	set_mutex(void)
 {
 	int	i;
 
@@ -66,12 +66,13 @@ int	init_gval(int argc, char **args)
 	else
 		g_num_of_must_eat = -1;
 	g_eat_counter = 0;
+	g_philo_descriptor = 0;
 	g_end_of_eating
 		= (long long *)malloc(sizeof(long long) * g_num_of_philos);
 	g_philo_thread
 		= (pthread_t *)malloc(sizeof(pthread_t) * g_num_of_philos);
 	g_monitor_thread
 		= (pthread_t *)malloc(sizeof(pthread_t) * g_num_of_philos);
-	set_mutex(data);
+	set_mutex();
 	return (1);
 }

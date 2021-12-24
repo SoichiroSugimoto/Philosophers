@@ -6,11 +6,11 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:11:47 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/13 19:52:54 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/21 15:22:18 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "philo.h"
 
 int	numrange_error(char *num)
 {
@@ -38,12 +38,12 @@ int	args_error(int argc, char **argv)
 	res = 1;
 	if (argc < 4)
 	{
-		printf("Errror : The number of arguments is too small.")
+		printf("Errror : The number of arguments is too small.");
 		return (ERROR);
 	}
 	if (argc > 5)
 	{
-		printf("Errror : The number of arguments is too many.")
+		printf("Errror : The number of arguments is too many.");
 		return (ERROR);
 	}
 	while (i < argc)

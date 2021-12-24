@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:59:10 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/21 10:42:47 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/24 12:31:23 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	output_with_mutex(int x, struct timeval	time, char *message)
 {
 	pthread_mutex_lock(&g_output_mutex);
-	printf("%lld %d %s\n", get_timemsec(data->time), x, message);
+	printf("%lld %d %s", get_timemsec(time), x, message);
 	pthread_mutex_unlock(&g_output_mutex);
 }
 
@@ -28,6 +28,7 @@ void	xiseating(t_action *data)
 	i = pd - 1;
 	if (i <= 0)
 		i = g_num_of_philos;
+	// printf("i :  %d      pd :  %d\n", i, pd);
 	pthread_mutex_lock(&(g_fork_mutex[i]));
 	gettimeofday(&(data->time), NULL);
 	output_with_mutex(pd, data->time, TAKEAFORK);
@@ -44,6 +45,7 @@ void	xissleeping(t_action *data)
 	int			pd;
 
 	pd = data->philo_descriptor;
+	// printf("-------------  pd  : %d\n", pd);
 	ft_usleep(data->time, g_time_to_eat);
 	g_end_of_eating[pd - 1] = get_timemsec(data->time);
 	output_with_mutex(pd, data->time, SLEEPING);

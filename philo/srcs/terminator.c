@@ -6,21 +6,21 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:56:35 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/21 09:45:01 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/24 12:13:15 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	terminate_all(void)
+void	terminate_all(void)
 {
 	int	i;
 
 	i = 0;
 	while (i < g_num_of_philos)
 	{
-		pthread_detach(&(g_philo_thread[i]));
-		pthread_detach(&(g_monitor_thread[i]));
+		pthread_detach(g_philo_thread[i]);
+		pthread_detach(g_monitor_thread[i]);
 		i++;
 	}
 }
@@ -31,23 +31,26 @@ void	*terminator_thread(void *arg)
 	{
 		if (g_starvation_flag == DEATH)
 		{
+			printf("[terminator_thread] Recognize death of a philosopher.\n");
 			terminate_all();
 			break ;
 		}
 		usleep(200);
 	}
-	return (NULL);
+	return (arg);
 }
 
-int	create_terminator(void)
+void	create_terminator(void)
 {
-	pthread_t	terminator_thread;
+	pthread_t	tmn_thread;
 
-	if (pthread_create(&terminator_thread, NULL,
-			terminator_thread, (void *)i) != 0)
+	if (pthread_create(&tmn_thread, NULL,
+			terminator_thread, 0) != 0)
 	{
 		perror("pthread_create");
-		return (1);
+		return ;
 	}
-	pthread_join(terminator_thread, NULL);
+	printf("[start]    --------------- terminator\n");
+	pthread_join(tmn_thread, NULL);
+	printf("[finish]   --------------- terminator\n");
 }
