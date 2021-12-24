@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:58:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/24 12:25:27 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/24 15:03:14 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,31 @@
 
 void	*moni_thread_routine(void *arg)
 {
+	int				i;
 	t_action		*data;
 	struct timeval	now;
 	long long		now_ms;
 
+	i = 0;
 	data = (t_action *)arg;
+	while (i < g_num_of_philos)
+	{
+		g_end_of_eating[i] = -1;
+		i++;
+	}
 	while (1)
 	{
 		gettimeofday(&now, NULL);
 		now_ms = get_timemsec(now);
-		if (g_end_of_eating[data->philo_descriptor - 1] - now_ms >= g_time_to_die)
+		// printf("g_end_of_eating[%d] :   %lld", data->philo_descriptor - 1, g_end_of_eating[data->philo_descriptor - 1]);
+		// printf("       now_ms :    %lld", now_ms);
+		// printf(" [ %lld ]\n", now_ms - g_end_of_eating[data->philo_descriptor - 1]);
+		if (now_ms - g_end_of_eating[data->philo_descriptor - 1] >= g_time_to_die
+		&& g_end_of_eating[data->philo_descriptor - 1] != -1)
 		{
-			printf("[moni_thread_routine] Recognize death of a philosopher.\n");
-			g_starvation_flag = DEATH;
+			// printf("                   [moni_thread_routine] Recognize death of a philosopher.\n");
+			g_starvation_flag = data->philo_descriptor;
+			g_death_time = now_ms;
 		}
 		usleep(200);
 	}

@@ -16,7 +16,13 @@ void	print_gval(void)
 	printf("g_eat_counter     :    %d\n", g_eat_counter);
 	while (i < g_num_of_philos)
 	{
-		printf("g_philo_thread[i]  :   %p\n", &(g_philo_thread[i]));
+		printf("g_philo_thread[%d]  :   %p\n", i, &(g_philo_thread[i]));
+		i++;
+	}
+	i = 0;
+	while (i < g_num_of_philos)
+	{
+		printf("g_philo_thread[%d]  :   %p\n", i, &(g_fork_mutex[i]));
 		i++;
 	}
 	printf("==================================\n");

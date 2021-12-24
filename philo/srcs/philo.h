@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:49:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/22 11:52:17 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/24 13:57:51 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ pthread_t		*g_philo_thread;
 pthread_t		*g_monitor_thread;
 pthread_mutex_t	*g_fork_mutex;
 pthread_mutex_t	g_output_mutex;
+long long		g_death_time;
 
 typedef struct s_action
 {
@@ -81,7 +82,8 @@ void			*terminator_thread(void *arg);
 void			create_terminator(void);
 
 // ---------------------------  utils.c
-void			ft_usleep(struct timeval	start, long long	sleep_ms);
+void			ft_usleep(t_action	*data, long long	sleep_ms);
+// void			ft_usleep(struct timeval	start, long long	sleep_ms);
 long long		get_timemsec(struct timeval	time);
 
 // -----------------------------------------------------------------------  AAAAA.c

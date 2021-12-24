@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 12:24:23 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/22 11:53:02 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/24 14:59:39 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	init_gval(int argc, char **args)
 	g_monitor_thread
 		= (pthread_t *)malloc(sizeof(pthread_t) * g_num_of_philos);
 	set_mutex();
+	g_death_time = 0;
 	return (1);
 }
