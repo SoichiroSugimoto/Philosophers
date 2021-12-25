@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 12:24:23 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/24 14:59:39 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/25 16:05:02 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	set_mutex(void)
 
 int	init_gval(int argc, char **args)
 {
+	if (args_error(argc, args) == ERROR)
+		return (ERROR);
 	g_starvation_flag = LIFE;
 	g_num_of_philos = (int)my_atoi(args[1]);
 	g_time_to_die = (int)my_atoi(args[2]);

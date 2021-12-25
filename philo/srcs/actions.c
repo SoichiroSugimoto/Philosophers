@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:59:10 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/24 15:45:10 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/25 17:41:23 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,29 @@ void	output_with_mutex(int x, struct timeval	time, char *message)
 
 void	xiseating(t_action *data)
 {
-	int			pd;
-	int			i;
+	int	pd;
+	int	fork1;
+	int	fork2;
 
 	pd = data->philo_descriptor;
-	i = pd - 2;
-	if (i <= 0)
-		i = g_num_of_philos - 1;
-	// printf("i :  %d      pd :  %d\n", i, pd);
-	pthread_mutex_lock(&(g_fork_mutex[i]));
+	fork1 = pd - 2;
+	if (fork1 <= 0)
+		fork1 = g_num_of_philos - 1;
+	fork2 = pd - 1;
+	pthread_mutex_lock(&(g_fork_mutex[fork1]));
 	gettimeofday(&(data->time), NULL);
 	output_with_mutex(pd, data->time, TAKEAFORK);
-	pthread_mutex_lock(&(g_fork_mutex[pd - 1]));
+	pthread_mutex_lock(&(g_fork_mutex[fork2]));
 	gettimeofday(&(data->time), NULL);
-	output_with_mutex(pd, data->time, TAKEAFORK);
-	output_with_mutex(pd, data->time, EATING);
-	ft_usleep(data, g_time_to_eat);
 	g_end_of_eating[pd - 1] = get_timemsec(data->time);
-	pthread_mutex_unlock(&(g_fork_mutex[pd - 1]));
-	pthread_mutex_unlock(&(g_fork_mutex[i]));
+	output_with_mutex(pd, data->time, TAKEAFORK);
+	gettimeofday(&(data->time), NULL);
+	output_with_mutex(pd, data->time, EATING);
+	gettimeofday(&(data->time), NULL);
+	ft_usleep(data, g_time_to_eat);
+	pthread_mutex_unlock(&(g_fork_mutex[fork2]));
+	pthread_mutex_unlock(&(g_fork_mutex[fork1]));
+	g_end_of_eating[pd - 1] = get_timemsec(data->time);
 }
 
 void	xissleeping(t_action *data)

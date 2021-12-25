@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:58:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/24 15:46:05 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/25 16:56:17 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ void	*moni_thread_routine(void *arg)
 	{
 		gettimeofday(&now, NULL);
 		now_ms = get_timemsec(now);
-		// printf("g_end_of_eating[%d] :   %lld", data->philo_descriptor - 1, g_end_of_eating[data->philo_descriptor - 1]);
-		// printf("       now_ms :    %lld", now_ms);
-		// printf(" [ %lld ]\n", now_ms - g_end_of_eating[data->philo_descriptor - 1]);
-		if (now_ms - g_end_of_eating[data->philo_descriptor - 1] >= g_time_to_die
-		&& g_end_of_eating[data->philo_descriptor - 1] != -1)
+		if (now_ms - g_end_of_eating[data->philo_descriptor - 1]
+			> g_time_to_die
+			&& g_end_of_eating[data->philo_descriptor - 1] != -1)
 		{
-			// printf("                   [moni_thread_routine] Recognize death of a philosopher.\n");
 			pthread_mutex_lock(&g_output_mutex);
 			g_starvation_flag = data->philo_descriptor;
 			g_death_time = now_ms;
@@ -59,8 +56,7 @@ void	*philo_thread_routine(void *arg)
 	data->philo_descriptor = pd + 1;
 	data->num_of_forks = 0;
 	gettimeofday(&(data->time), NULL);
-	// printf("############\n");
-	// printf("     pd :  %d\n", pd);
+	g_end_of_eating[pd] = get_timemsec(data->time);
 	if (pthread_create(&(g_monitor_thread[pd]), NULL,
 			moni_thread_routine, (void *)data) != 0)
 	{

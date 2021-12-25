@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:49:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/24 13:57:51 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/25 17:19:01 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 # define LIFE 1
 # define DEATH 0
+
+# define ARGS_ERROR		"ERROR: your argument is improper\n"
 
 # define TAKEAFORK	"has taken a fork\n"
 # define EATING		"is eating\n"
@@ -58,7 +60,7 @@ typedef struct s_action
 
 // ---------------------------  args_error_handle.c
 int				numrange_error(char *num);
-int				args_error(int argc, char **argv);
+int				args_error(int argc, char **args);
 
 // ---------------------------  init_gval.c
 long long		my_atoi(const char *str);

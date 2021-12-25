@@ -22,7 +22,7 @@ void	print_gval(void)
 	i = 0;
 	while (i < g_num_of_philos)
 	{
-		printf("g_philo_thread[%d]  :   %p\n", i, &(g_fork_mutex[i]));
+		printf("g_fork_mutex[%d]    :   %p\n", i, &(g_fork_mutex[i]));
 		i++;
 	}
 	printf("==================================\n");
