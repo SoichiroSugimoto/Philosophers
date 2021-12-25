@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:11:55 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/25 18:13:11 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/25 18:42:00 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char *argv[])
 	// pthread_mutex_unlock(&g_output_mutex);
 	while (i < g_num_of_philos)
 	{
-		printf("Philo[%d] :   %lld   + 410 =  %lld\n", i, g_end_of_eating[i], g_end_of_eating[i] + 410);
+		printf("Philo[%d] :   %lld   + 800 + 1 =  %lld\n", i, g_end_of_eating[i], g_end_of_eating[i] + 801);
 		i++;
 	}
 	return (0);
