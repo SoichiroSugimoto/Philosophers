@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:11:55 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 19:19:47 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/27 19:43:13 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	main(int argc, char *argv[])
 
 	if (init_gval(argc, argv) == ERROR)
 		return (0);
-	print_gval();
 	if (is_numof_philo_one() == 1)
 		return (0);
 	if (pthread_create(&tmn_thread, NULL, terminator_thread, 0) != 0)
