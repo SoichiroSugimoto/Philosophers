@@ -6,13 +6,13 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 18:56:10 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 18:57:12 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/27 19:08:10 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	g_end_of_eating(void)
+void	init_g_end_of_eating(void)
 {
 	int	i;
 

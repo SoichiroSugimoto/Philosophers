@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 19:52:28 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 18:47:21 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/27 19:29:08 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_total(int *array, int len)
 
 	i = 0;
 	res = 0;
-	while (i < len)
+	while (i < len && g_eatcount_flag != NULL)
 	{
 		res += array[i];
 		i++;

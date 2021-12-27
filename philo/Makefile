@@ -1,10 +1,10 @@
 NAME	= philo
 
-SRCS	=	srcs/AAAAA.c \
-			srcs/actions.c \
+SRCS	=	srcs/actions.c \
 			srcs/args_error_handle.c \
 			srcs/create_thread.c \
 			srcs/init_gval.c \
+			srcs/init_gval2.c \
 			srcs/philo.c \
 			srcs/terminator.c \
 			srcs/utils.c

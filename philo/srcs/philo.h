@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:49:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 19:00:39 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/27 19:42:22 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void			set_mutex(void);
 int				init_gval(int argc, char **args);
 
 // ---------------------------  init_gval2.c
-void			g_end_of_eating(void);
+void			init_g_end_of_eating(void);
 
 // ---------------------------  create_thread.c
 void			*moni_thread_routine(void *arg);
@@ -98,8 +98,5 @@ void			create_terminator(void);
 int				get_total(int *array, int len);
 void			ft_usleep(t_action	*data, long long	sleep_ms);
 long long		get_timemsec(struct timeval	time);
-
-// -----------------------------------------------------------------------  AAAAA.c
-void			print_gval(void);
 
 #endif

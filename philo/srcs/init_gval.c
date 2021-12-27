@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 12:24:23 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 18:57:56 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/27 19:27:50 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	init_eatcount_flag(void)
 			i++;
 		}
 	}
+	else
+		g_eatcount_flag = NULL;
 	return (1);
 }
 
@@ -122,7 +124,7 @@ int	init_gval(int argc, char **args)
 	g_philo_descriptor = 0;
 	if (gval_malloc() == ERROR || init_eatcount_flag() == ERROR)
 		return (ERROR);
-	g_end_of_eating();
+	init_g_end_of_eating();
 	set_mutex();
 	g_death_time = 0;
 	g_created_philoth = 0;
