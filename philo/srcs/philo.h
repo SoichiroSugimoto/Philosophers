@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:49:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/25 17:19:01 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/27 19:00:39 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@
 
 # define ERROR -1
 
+# define EAT 1
 # define LIFE 1
 # define DEATH 0
 
-# define ARGS_ERROR		"ERROR: your argument is improper\n"
+# define MALLOC_ERROR			"ERROR: malloc error\n"
+# define ARGS_ERROR				"ERROR: your argument is improper\n"
+# define THREAD_CREATE_ERROR	"ERROR: pthread_create() did not work well\n"
 
 # define TAKEAFORK	"has taken a fork\n"
 # define EATING		"is eating\n"
@@ -41,13 +44,16 @@ int				g_time_to_eat;
 int				g_time_to_sleep;
 int				g_num_of_must_eat;
 int				g_philo_descriptor;
-int				g_eat_counter;
+int				*g_eatcount_flag;
 long long		*g_end_of_eating;
 pthread_t		*g_philo_thread;
 pthread_t		*g_monitor_thread;
 pthread_mutex_t	*g_fork_mutex;
 pthread_mutex_t	g_output_mutex;
+pthread_mutex_t	g_monitor_mutex;
 long long		g_death_time;
+int				g_created_philoth;
+int				g_created_monith;
 
 typedef struct s_action
 {
@@ -59,6 +65,8 @@ typedef struct s_action
 // ---------------------------  philo.c
 
 // ---------------------------  args_error_handle.c
+void			malloc_error_deal(void *mem);
+int				pthread_create_error(void);
 int				numrange_error(char *num);
 int				args_error(int argc, char **args);
 
@@ -66,6 +74,9 @@ int				args_error(int argc, char **args);
 long long		my_atoi(const char *str);
 void			set_mutex(void);
 int				init_gval(int argc, char **args);
+
+// ---------------------------  init_gval2.c
+void			g_end_of_eating(void);
 
 // ---------------------------  create_thread.c
 void			*moni_thread_routine(void *arg);
@@ -84,8 +95,8 @@ void			*terminator_thread(void *arg);
 void			create_terminator(void);
 
 // ---------------------------  utils.c
+int				get_total(int *array, int len);
 void			ft_usleep(t_action	*data, long long	sleep_ms);
-// void			ft_usleep(struct timeval	start, long long	sleep_ms);
 long long		get_timemsec(struct timeval	time);
 
 // -----------------------------------------------------------------------  AAAAA.c

@@ -6,11 +6,36 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:11:47 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/25 16:04:53 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/27 19:00:24 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	malloc_error_deal(void *mem)
+{
+	if (mem == NULL)
+	{
+		g_starvation_flag = 1;
+		printf(MALLOC_ERROR);
+	}
+}
+
+int	pthread_create_error(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < g_created_philoth)
+	{
+		pthread_detach(g_philo_thread[i]);
+		if (i < g_created_monith)
+			pthread_detach(g_monitor_thread[i]);
+		i++;
+	}
+	printf(THREAD_CREATE_ERROR);
+	return (ERROR);
+}
 
 int	numrange_error(char *num)
 {
@@ -33,7 +58,8 @@ int	args_error(int argc, char **args)
 
 	i = 1;
 	res = 1;
-	if (4 > argc || argc > 5)
+	printf("argc :  %d\n", argc);
+	if (4 >= argc || argc >= 7)
 	{
 		printf(ARGS_ERROR);
 		return (ERROR);

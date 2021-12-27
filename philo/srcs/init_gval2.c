@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminator.c                                       :+:      :+:    :+:   */
+/*   init_gval2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/15 17:56:35 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 14:41:27 by sosugimo         ###   ########.fr       */
+/*   Created: 2021/12/27 18:56:10 by sosugimo          #+#    #+#             */
+/*   Updated: 2021/12/27 18:57:12 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*terminator_thread(void *arg)
+void	g_end_of_eating(void)
 {
 	int	i;
 
 	i = 0;
-	while (1)
+	while (i < g_num_of_philos)
 	{
-		if (g_starvation_flag != LIFE)
-		{
-			while (i < g_num_of_philos)
-			{
-				pthread_detach(g_philo_thread[i]);
-				pthread_detach(g_monitor_thread[i]);
-				i++;
-			}
-			break ;
-		}
-		usleep(200);
+		g_end_of_eating[i] = -1;
+		i++;
 	}
-	return (arg);
 }

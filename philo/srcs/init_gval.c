@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 12:24:23 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/25 16:05:02 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/27 18:57:56 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,59 @@ void	set_mutex(void)
 		pthread_mutex_init(&((g_fork_mutex)[i]), NULL);
 		i++;
 	}
-	pthread_mutex_init(&(g_output_mutex), NULL);
+	pthread_mutex_init(&g_output_mutex, NULL);
+	pthread_mutex_init(&g_monitor_mutex, NULL);
+}
+
+int	init_eatcount_flag(void)
+{
+	int	i;
+
+	i = 0;
+	if (g_num_of_must_eat != -1)
+	{
+		g_eatcount_flag = (int *)malloc(sizeof(int) * g_num_of_philos);
+		if (g_monitor_thread == NULL)
+		{
+			printf(MALLOC_ERROR);
+			return (ERROR);
+		}
+		while (i < g_num_of_philos)
+		{
+			g_eatcount_flag[i] = 0;
+			i++;
+		}
+	}
+	return (1);
+}
+
+int	gval_malloc(void)
+{
+	g_end_of_eating
+		= (long long *)malloc(sizeof(long long) * g_num_of_philos);
+	if (g_end_of_eating == NULL)
+	{
+		printf(MALLOC_ERROR);
+		return (ERROR);
+	}
+	g_philo_thread
+		= (pthread_t *)malloc(sizeof(pthread_t) * g_num_of_philos);
+	if (g_philo_thread == NULL)
+	{
+		printf(MALLOC_ERROR);
+		free(g_end_of_eating);
+		return (ERROR);
+	}
+	g_monitor_thread
+		= (pthread_t *)malloc(sizeof(pthread_t) * g_num_of_philos);
+	if (g_monitor_thread == NULL)
+	{
+		printf(MALLOC_ERROR);
+		free(g_end_of_eating);
+		free(g_philo_thread);
+		return (ERROR);
+	}
+	return (1);
 }
 
 int	init_gval(int argc, char **args)
@@ -67,15 +119,13 @@ int	init_gval(int argc, char **args)
 		g_num_of_must_eat = (int)my_atoi(args[5]);
 	else
 		g_num_of_must_eat = -1;
-	g_eat_counter = 0;
 	g_philo_descriptor = 0;
-	g_end_of_eating
-		= (long long *)malloc(sizeof(long long) * g_num_of_philos);
-	g_philo_thread
-		= (pthread_t *)malloc(sizeof(pthread_t) * g_num_of_philos);
-	g_monitor_thread
-		= (pthread_t *)malloc(sizeof(pthread_t) * g_num_of_philos);
+	if (gval_malloc() == ERROR || init_eatcount_flag() == ERROR)
+		return (ERROR);
+	g_end_of_eating();
 	set_mutex();
 	g_death_time = 0;
+	g_created_philoth = 0;
+	g_created_monith = 0;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:59:10 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/25 17:41:23 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/27 00:09:48 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	output_with_mutex(int x, struct timeval	time, char *message)
 {
 	pthread_mutex_lock(&g_output_mutex);
-	// if (x == 1)
-	// 	printf("   ----------   :  ");
 	if (g_starvation_flag == LIFE)
 		printf("%lld %d %s", get_timemsec(time), x, message);
 	pthread_mutex_unlock(&g_output_mutex);
@@ -30,7 +28,7 @@ void	xiseating(t_action *data)
 
 	pd = data->philo_descriptor;
 	fork1 = pd - 2;
-	if (fork1 <= 0)
+	if (fork1 < 0)
 		fork1 = g_num_of_philos - 1;
 	fork2 = pd - 1;
 	pthread_mutex_lock(&(g_fork_mutex[fork1]));
@@ -38,7 +36,6 @@ void	xiseating(t_action *data)
 	output_with_mutex(pd, data->time, TAKEAFORK);
 	pthread_mutex_lock(&(g_fork_mutex[fork2]));
 	gettimeofday(&(data->time), NULL);
-	g_end_of_eating[pd - 1] = get_timemsec(data->time);
 	output_with_mutex(pd, data->time, TAKEAFORK);
 	gettimeofday(&(data->time), NULL);
 	output_with_mutex(pd, data->time, EATING);
@@ -54,7 +51,6 @@ void	xissleeping(t_action *data)
 	int			pd;
 
 	pd = data->philo_descriptor;
-	// printf("-------------  pd  : %d\n", pd);
 	output_with_mutex(pd, data->time, SLEEPING);
 }
 
