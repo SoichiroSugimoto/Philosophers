@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:11:47 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/28 14:41:37 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:37:52 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ int	numrange_error(char *num)
 	while (num[i])
 	{
 		if (!('0' <= num[i] && num[i] <= '9'))
+		{
+			printf(ARGS_ERROR);
 			return (ERROR);
+		}
 		i++;
 	}
 	return (1);
