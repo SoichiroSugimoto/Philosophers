@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 12:24:23 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 19:27:50 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:39:18 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ int	init_gval(int argc, char **args)
 		g_num_of_must_eat = (int)my_atoi(args[5]);
 	else
 		g_num_of_must_eat = -1;
+	if (intrange_error() == ERROR)
+		return (ERROR);
 	g_philo_descriptor = 0;
 	if (gval_malloc() == ERROR || init_eatcount_flag() == ERROR)
 		return (ERROR);

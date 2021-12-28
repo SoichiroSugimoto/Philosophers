@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:49:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 19:42:22 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:38:56 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void			malloc_error_deal(void *mem);
 int				pthread_create_error(void);
 int				numrange_error(char *num);
 int				args_error(int argc, char **args);
+int				intrange_error(void);
 
 // ---------------------------  init_gval.c
 long long		my_atoi(const char *str);

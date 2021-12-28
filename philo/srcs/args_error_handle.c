@@ -6,11 +6,29 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:11:47 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 19:00:24 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:41:37 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	intrange_error(void)
+{
+	if (g_num_of_philos < 0
+		|| g_time_to_die < 0
+		|| g_time_to_eat < 0
+		|| g_time_to_sleep < 0)
+	{
+		printf(ARGS_ERROR);
+		return (ERROR);
+	}
+	if (g_num_of_must_eat < -1)
+	{
+		printf(ARGS_ERROR);
+		return (ERROR);
+	}
+	return (1);
+}
 
 void	malloc_error_deal(void *mem)
 {
@@ -58,7 +76,6 @@ int	args_error(int argc, char **args)
 
 	i = 1;
 	res = 1;
-	printf("argc :  %d\n", argc);
 	if (4 >= argc || argc >= 7)
 	{
 		printf(ARGS_ERROR);
