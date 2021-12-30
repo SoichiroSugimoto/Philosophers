@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:59:10 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 00:09:48 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/30 17:40:05 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	xiseating(t_action *data)
 	gettimeofday(&(data->time), NULL);
 	output_with_mutex(pd, data->time, TAKEAFORK);
 	gettimeofday(&(data->time), NULL);
+	g_end_of_eating[pd - 1] = get_timemsec(data->time);
 	output_with_mutex(pd, data->time, EATING);
 	gettimeofday(&(data->time), NULL);
 	ft_usleep(data, g_time_to_eat);
 	pthread_mutex_unlock(&(g_fork_mutex[fork2]));
 	pthread_mutex_unlock(&(g_fork_mutex[fork1]));
-	g_end_of_eating[pd - 1] = get_timemsec(data->time);
 }
 
 void	xissleeping(t_action *data)

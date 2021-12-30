@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 12:24:23 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/28 14:39:18 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/29 19:41:31 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,18 @@ long long	my_atoi(const char *str)
 	return (res * sign);
 }
 
-void	set_mutex(void)
+int	set_mutex(void)
 {
 	int	i;
 
 	i = 0;
 	g_fork_mutex = (pthread_mutex_t *)
 		malloc(sizeof(pthread_mutex_t) * g_num_of_philos);
+	if (g_fork_mutex == NULL)
+	{
+		malloc_error_deal(g_fork_mutex);
+		return (ERROR);
+	}
 	while (i < g_num_of_philos)
 	{
 		pthread_mutex_init(&((g_fork_mutex)[i]), NULL);
@@ -53,6 +58,7 @@ void	set_mutex(void)
 	}
 	pthread_mutex_init(&g_output_mutex, NULL);
 	pthread_mutex_init(&g_monitor_mutex, NULL);
+	return (1);
 }
 
 int	init_eatcount_flag(void)
@@ -127,7 +133,8 @@ int	init_gval(int argc, char **args)
 	if (gval_malloc() == ERROR || init_eatcount_flag() == ERROR)
 		return (ERROR);
 	init_g_end_of_eating();
-	set_mutex();
+	if (set_mutex() == ERROR)
+		return (ERROR);
 	g_death_time = 0;
 	g_created_philoth = 0;
 	g_created_monith = 0;

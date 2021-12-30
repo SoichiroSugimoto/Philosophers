@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:11:55 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/27 19:43:13 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/29 19:14:18 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	is_numof_philo_one(void)
 {
 	struct timeval	time;
 
+	if (g_num_of_philos == 0)
+		return (1);
 	if (g_num_of_philos == 1)
 	{
 		gettimeofday(&time, NULL);

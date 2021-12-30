@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:49:15 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/12/28 14:38:56 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/12/30 17:38:20 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@
 # define ERROR -1
 
 # define EAT 1
-# define LIFE 1
-# define DEATH 0
+# define LIFE 0
 
 # define MALLOC_ERROR			"ERROR: malloc error\n"
 # define ARGS_ERROR				"ERROR: your argument is improper\n"
@@ -73,7 +72,7 @@ int				intrange_error(void);
 
 // ---------------------------  init_gval.c
 long long		my_atoi(const char *str);
-void			set_mutex(void);
+int				set_mutex(void);
 int				init_gval(int argc, char **args);
 
 // ---------------------------  init_gval2.c
